@@ -40,6 +40,55 @@ repo-root/
 
 ---
 
+## 🧭 Step-by-Step: Local Run
+
+1) **Clone** or open your project. Ensure all files above exist in the correct places.  
+2) **Install Node deps** (optional but recommended before Docker, so you catch npm errors early):
+   ```bash
+   cd frontend
+   npm ci
+   cd ..
+   ```
+3) **Build & start** the stack:
+   ```bash
+   docker compose up -d --build
+   ```
+4) **Verify**:
+   - Frontend: http://localhost  
+   - Backend docs: http://localhost:8000/docs  
+5) **Use the app:** Your frontend code should call the backend via relative paths, e.g. `fetch('/api/search')`. Nginx proxies it to the API.
+
+**Stopping:**
+```bash
+docker compose down
+```
+
+---
+
+## 🔁 After You Edit Code (Redeploy Locally)
+
+- Rebuild **both**:
+  ```bash
+  docker compose up -d --build
+  ```
+- Or rebuild **one** service:
+  ```bash
+  docker compose up -d --build api
+  docker compose up -d --build web
+  ```
+- Check logs if something is off:
+  ```bash
+  docker compose logs -f api
+  docker compose logs -f web
+  ```
+
+**Cleaning up** dangling images/cache (optional):
+```bash
+docker system prune -f
+```
+
+---
+
 ## 🧱 Files You Need (Copy/Paste)
 
 ### `backend/Dockerfile`
@@ -185,54 +234,7 @@ services:
 
 ---
 
-## 🧭 Step-by-Step: Local Run
 
-1) **Clone** or open your project. Ensure all files above exist in the correct places.  
-2) **Install Node deps** (optional but recommended before Docker, so you catch npm errors early):
-   ```bash
-   cd frontend
-   npm ci
-   cd ..
-   ```
-3) **Build & start** the stack:
-   ```bash
-   docker compose up -d --build
-   ```
-4) **Verify**:
-   - Frontend: http://localhost  
-   - Backend docs: http://localhost:8000/docs  
-5) **Use the app:** Your frontend code should call the backend via relative paths, e.g. `fetch('/api/search')`. Nginx proxies it to the API.
-
-**Stopping:**
-```bash
-docker compose down
-```
-
----
-
-## 🔁 After You Edit Code (Redeploy Locally)
-
-- Rebuild **both**:
-  ```bash
-  docker compose up -d --build
-  ```
-- Or rebuild **one** service:
-  ```bash
-  docker compose up -d --build api
-  docker compose up -d --build web
-  ```
-- Check logs if something is off:
-  ```bash
-  docker compose logs -f api
-  docker compose logs -f web
-  ```
-
-**Cleaning up** dangling images/cache (optional):
-```bash
-docker system prune -f
-```
-
----
 
 ## 🧪 Dev Mode (Hot Reload)
 
