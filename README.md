@@ -36,8 +36,6 @@ repo-root/
    └─ src/
 ```
 
-> Your actual FastAPI modules and React components can vary. Adjust paths if your tree differs.
-
 ---
 
 ## 🧭 Step-by-Step: Local Run
