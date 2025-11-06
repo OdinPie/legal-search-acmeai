@@ -1,0 +1,35 @@
+# reference : https://www.docker.com/blog/how-to-dockerize-react-app/#handling-environment-variables-securely
+
+# ------------------------
+#  FRONTEND: Vite + React
+# ------------------------
+
+# Stage 1: Build the app
+FROM node:24-alpine AS build
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files first (for caching)
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy all frontend files
+COPY . .
+
+# Build for production (creates /dist folder)
+RUN npm run build
+
+# Stage 2: Serve with Nginx
+FROM nginx:alpine
+
+# Copy build output to Nginx web root
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Expose Nginx port
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]

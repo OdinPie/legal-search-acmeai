@@ -1,0 +1,22 @@
+import json
+
+def loadDocs ():
+    with open ('../data/docs.json','r') as file:
+        data = json.load(file)
+
+def searchFor(query:str, mode:str) :
+    
+    loadDocs()
+    matches = []
+    
+    for case in data:
+        if mode == 'title':
+            if query.lower() in case.title.lower():
+                matches.append(case.id)
+        else:
+            if query.lower() in case.title.lower() or query.lower() in case.text.lower():
+                matches.append(case.id)
+
+    if not matches:
+        return ("No match found!")
+    return ", ".join(matches)

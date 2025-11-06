@@ -1,0 +1,1 @@
+def searchFor(query:str) ->

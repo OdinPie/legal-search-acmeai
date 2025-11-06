@@ -1,0 +1,30 @@
+import json
+
+def loadDocs ():
+    with open ('app/data/docs.json','r') as file:
+        data = json.load(file)
+        return data
+
+def searchFor(query:str, mode=None, tags=None) :
+    
+    data = loadDocs()
+    matches = []
+    tags = [k.lower() for k in tags] if tags else 
+
+    
+    for case in data:
+        
+        title = case["title"].lower()
+        text = case["text"].lower()
+        keywords = [k.lower() for k in case["keywords"]]
+        if mode == 'title':
+            found = query.lower() in title
+        else:
+            found = query.lower() in title or query.lower() in text
+        
+        hasTags = all(tag in keywords for tag in tags) if tags else True
+        if found and hasTags:
+            matches.append(case["id"])
+
+    
+    return matches
