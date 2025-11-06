@@ -1,2 +1,0 @@
-
-class searchRequest(Base)

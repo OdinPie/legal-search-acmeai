@@ -22,6 +22,7 @@ export default function SearchSection() {
       return;
     }
 
+    setDocs([])
   
     const payload = {
         query:query,
