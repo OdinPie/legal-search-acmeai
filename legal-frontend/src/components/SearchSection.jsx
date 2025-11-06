@@ -3,6 +3,7 @@ import TagBar from "./TagBar";
 import useAxios from "../utils/hooks/useAxios";
 import DisplayCards from "./DisplayCards/DisplayCards";
 import Modal from "./Modal";
+import notFound from "../assets/notFound.png"
 export default function SearchSection() {
 
   const [query, setQuery] = useState("");
@@ -95,7 +96,10 @@ export default function SearchSection() {
 
   {docs && docs.length>0? (
   <DisplayCards value={docs} onSelect={(doc) => setSelectedDoc(doc)} />
-) : (<p className="text-center text-gray-500 mt-4">File Not found</p>
+) : (<div className="flex flex-col justify-center items-center mt-5">
+  <img className="w-24" src={notFound} alt="not found img" />
+  <p className="text-center text-gray-500 mt-4">File Not found</p>
+</div>
 )}
 
 

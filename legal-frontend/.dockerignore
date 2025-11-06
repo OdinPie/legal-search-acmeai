@@ -3,3 +3,7 @@ dist
 .git
 .gitignore
 .vite
+.history/
+.history
+*.history/
+*.history
